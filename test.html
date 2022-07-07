@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>browser blinkie generator test</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+				
+				
+				<h1>make blinkies in browser javascript? (under construction)</h1>
+				idk what a web worker is and at this point i'm too afraid to ask<br>
+				
+				<button id='generate'>generate</button><br>
+				
+				<img id="frame1"><img id="frame2"><img id="finished"><br><br>
+				
+				(i have to click "generate" twice in Firefox, idk why)<br><br>
+				
+				from what I've learned so far, image generation is typically a server-side task. tools like Imagemagick and Gifsicle are much faster at generating gifs than browser javascript. browser-based gif generation will be particularly slow on lower-end hardware, and it relies on less-mature software with fewer features. not all browsers support it, and those that do may have browser-specific quirks. however, by avoiding server-side code, it is possible to put a gif generator on free static hosting providers like Neocities, which should lower the barrier to entry!
+				
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/jimp/0.16.2-canary.1086.1311.0/jimp.js" integrity="sha512-s6OcmxNWduMzGZbiuVW+CLo9rTfhdKXUiBDKd/Da8RH65plN98t1iOnrHr2/mpP+MasS40Lyjt2qv8+/eUe/4w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/gifshot/0.1.1/gifshot.min.js" integrity="sha512-+csm+2+W6RQtuoRwUZOy638PnlmGpCWwqLq9GAfvWq+c+i8Bn2hM8iNJ6152lltEnbtLNJ+JhrXPZA+EkF8xoQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+				<script>            
+					async function addText(x, y, b, a) {
+    					var img = new Jimp(this.bitmap.width + Math.abs(x * 2) + (b * 2), this.bitmap.height + Math.abs(y * 2) + (b * 2));
+    					var orig = this.clone();
+					
+    					// this.resize(this.bitmap.width + Math.abs(x) + b, this.bitmap.height + Math.abs(y) + b);
+					
+    					var x1 = Math.max(x * -1, 0) + b;
+    					var y1 = Math.max(y * -1, 0) + b;
+    					img.composite(this, x1, y1);
+					
+    					//img.autocrop();
+    					var font = await Jimp.loadFont('open-sans-12-black.txt')
+    					img.print(font, 10, 2, 'hello world'); // print a message on an image. message can be a any type
+    					return img;
+					}
+					
+					const generatebtn = document.getElementById("generate");
+					generatebtn.onclick = async function() {
+    					await Jimp.read("blank/blank-green-0.png").then(async function(img) {
+        					console.log(img.getMIME(), img.getExtension());
+        					var img = await addText.call(img, 0, 0, 0, 0.3)
+        					img.getBase64(Jimp.AUTO, function(err, src) {
+            					var img = document.getElementById("frame1");
+            					img.setAttribute("src", src);
+        					});
+    					});
+    					await Jimp.read("blank/blank-green-1.png").then(async function(img) {
+        					console.log(img.getMIME(), img.getExtension());
+        					var img = await addText.call(img, 0, 0, 0, 0.3)
+        					img.getBase64(Jimp.AUTO, function(err, src) {
+            					var img = document.getElementById("frame2");
+            					img.setAttribute("src", src);
+        					});
+    					});
+					
+					
+    					await gifshot.createGIF({
+        					'images': [document.getElementById("frame1"), document.getElementById("frame2")],
+        					// Desired width of the image
+        					'gifWidth': 150,
+        					// Desired height of the image
+        					'gifHeight': 20
+    					}, function(obj) {
+        					if (!obj.error) {
+            					var image = obj.image,
+                					animatedImage = document.getElementById('finished');
+            					animatedImage.src = image;
+        					}
+    					});
+					}
+        </script>        
+    </body>
+</html>

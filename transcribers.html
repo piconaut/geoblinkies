@@ -1,0 +1,48 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<html>
+    <a href='/geoblinkies.html'>&lt; back to geoblinkies</a><br>
+    <h2>transcribers!!!</h2>
+    <div id='transcriberList'></div>
+</html>
+<script>
+    const transcriberLinks = {
+        "max":"https://maxilla.neocities.org/",
+        "maple":"https://twitter.com/mplblm",
+        "soleil":"https://redstring.neocities.org/",
+        "bunny":"https://r0ttingrabbit.tumblr.com/",
+        "teeth":"https://teethkid67.neocities.org/",
+        "cactyys":"https://cactyys.tumblr.com/",
+        "anakin":"https://transbro.tumblr.com/",
+        "awnowimsad":"https://awnowimsad.tumblr.com/",
+        "robin":"https://waterfall.neocities.org/",
+        "starrs":"",
+        "amy":"https://blinkies.cafe",
+        "lexi ~ astrogirl":"https://wanderingmuses.tumblr.com/",
+        "dante":"https://minecraftdiaries.tumblr.com/",
+        "iris":"https://www.tumblr.com/blog/view/iris-and-the-creature",
+        "stede":"https://gentlemanslime.tumblr.com/",
+        "ravioli":"",
+        "p":"https://twitter.com/tech4trogs",
+        "hermon":"https://kirbrb.tumblr.com/",
+        "peril":"https://haemorrhaxe.tumblr.com/",
+        "lyra":"",
+        "rubycubix-alt":"https://rubycubix-alt.tumblr.com",
+        "cyrus":"https://kishln.tumblr.com/",
+        "murr":"",
+        "jordy":"https://ceoofcrimes.tumblr.com",
+        "fish":"https://hip-to-the-lottybean.tumblr.com/",
+        "zeph":"https://xenofly.tumblr.com/",
+        "teeth - anakin":"",
+        "soleil / dante":""
+    }
+    const transcriberList = document.getElementById("transcriberList");
+    for (i in transcriberLinks) {
+        const link = document.createElement('a');
+        link.innerHTML = i;
+        if (transcriberLinks[i] != '') link.href = transcriberLinks[i];
+        transcriberList.appendChild(link);
+        transcriberList.innerHTML += '<br>'
+    }
+</script>

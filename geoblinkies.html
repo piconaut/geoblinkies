@@ -1,0 +1,155 @@
+<style>
+</style>
+<head>
+    <title>Geoblinkies</title>
+    <meta name='description' content="a Geocities blinkie transcription project & search engine!">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<html>
+<div class="header" id="myHeader" style="position: sticky; top: 0;background:#ffffff;">
+    <h3>geoblinkies -- (<a href='/transcribers.html'>transcriber credits</a>)</h3>
+    <textarea id="searchbar" placeholder='try: "love", "frog", "anime", "doll", "kiss" (without quotes)' style='width:300px;'></textarea><br>
+    <button id="searchbtn">search!</button><button id="randombtn">i'm feeling lucky</button>
+    <div id="resultsCounter"></div>
+    transcript:&nbsp;<a id="transcriptLink" target="_blank"></a><br>
+    source:&nbsp;<a id="sourceLink" target="_blank"></a><br>
+    transcriber:&nbsp;<a id="transcriberLink" target="_blank"></a><br>
+    [<a id='cboxToggle' style='color:blue;text-decoration:underline;cursor:pointer;'>toggle chatbox</a>]<br>
+    <iframe id='cboxChat' src="https://www3.cbox.ws/box/?boxid=3518618&boxtag=biSAzh" width="400px" height="300px" allowtransparency="yes" allow="autoplay" frameborder="0" marginheight="0" marginwidth="0" scrolling="auto" style='display:none'></iframe>
+    <hr>
+</div>
+<div id="results"></div>
+</html>
+<script>
+    // this is not good code, sorry ><
+    // am planning to clean it up
+
+    var randomProperty = function (obj) {
+        var keys = Object.keys(obj);
+        return keys[ keys.length * Math.random() << 0];
+    };
+    function getTranscripts() {
+        return fetch('/geoblinkies.json').then((response)=>response.json())
+                                   .then((responseJson)=>{return responseJson});
+    }
+    function getTranscribers() {
+        return fetch('/transcribers.json').then((response)=>response.json())
+                                   .then((responseJson)=>{return responseJson});
+    }
+    const cboxToggle = document.getElementById("cboxToggle");
+    const cboxChat = document.getElementById("cboxChat");
+    cboxToggle.onclick = function() {
+        if (cboxChat.style.display == 'none') {
+            cboxChat.style.display = '';
+        }
+        else {
+            cboxChat.style.display = 'none';
+        }
+    }
+    getTranscripts().then(function(blinkieData) {
+
+        const transcriberLinks = {
+            "max":"https://maxilla.neocities.org/",
+            "maple":"https://twitter.com/mplblm",
+            "soleil":"https://redstring.neocities.org/",
+            "bunny":"https://r0ttingrabbit.tumblr.com/",
+            "teeth":"https://teethkid67.neocities.org/",
+            "cactyys":"https://cactyys.tumblr.com/",
+            "anakin":"https://transbro.tumblr.com/",
+            "awnowimsad":"https://awnowimsad.tumblr.com/",
+            "robin":"https://waterfall.neocities.org/",
+            "starrs":"",
+            "amy":"https://blinkies.cafe",
+            "lexi ~ astrogirl":"https://wanderingmuses.tumblr.com/",
+            "dante":"https://minecraftdiaries.tumblr.com/",
+            "iris":"https://www.tumblr.com/blog/view/iris-and-the-creature",
+            "stede":"https://gentlemanslime.tumblr.com/",
+            "ravioli":"",
+            "p":"https://twitter.com/tech4trogs",
+            "hermon":"https://kirbrb.tumblr.com/",
+            "peril":"https://haemorrhaxe.tumblr.com/",
+            "lyra":"",
+            "rubycubix-alt":"https://rubycubix-alt.tumblr.com",
+            "cyrus":"https://kishln.tumblr.com/",
+            "murr":"",
+            "jordy":"https://ceoofcrimes.tumblr.com",
+            "fish":"https://hip-to-the-lottybean.tumblr.com/",
+            "zeph":"https://xenofly.tumblr.com/",
+            "teeth - anakin":"",
+            "soleil / dante":""
+        }
+
+        const searchbar = document.getElementById("searchbar")
+        const searchbtn = document.getElementById("searchbtn")
+        const sourceLink = document.getElementById("sourceLink")
+        const transcriberLink = document.getElementById("transcriberLink")
+        const transcriptLink = document.getElementById("transcriptLink")
+        const randombtn = document.getElementById("randombtn")
+        const results = document.getElementById("results");
+        searchbtn.onclick = function() {
+            const maxResults = 250;
+            let fetchedResults = 0;
+            results.innerHTML = "";
+            const search = searchbar.value.toLowerCase()
+            if (search.length > 2) {
+                let result = "";
+                for (i in blinkieData) {
+                    if (blinkieData[i]['transcript']) {
+                        const fullTranscript = blinkieData[i]['transcript'];
+                        const transcript = blinkieData[i]['transcript'].toLowerCase();
+                        const blinkieUrl = blinkieData[i]['name'];
+                        if (transcript.includes(search)) {
+                            const resultElement = document.createElement('img');
+                            resultElement.src = blinkieUrl;
+                            const page = blinkieData[i]['page'];
+                            const transcriber = blinkieData[i]['transcriber'];
+                            resultElement.onclick = function() {
+                                sourceLink.href = page;
+                                sourceLink.innerText = 'link';
+                                transcriptLink.innerText = fullTranscript;
+                                if (transcriber == '') {
+                                    transcriberLink.innerText = 'anon';
+                                }
+                                else {
+                                    transcriberLink.innerText = transcriber;
+                                    if (transcriberLinks[transcriber] != "") transcriberLink.href = transcriberLinks[transcriber];
+                                    else transcriberLink.removeAttribute("href")
+                                }
+                            }
+                            results.appendChild(resultElement);
+                            fetchedResults ++;
+                        }
+                    }
+                }
+                let resultsCounter = document.getElementById("resultsCounter");
+                resultsCounter.innerHTML = fetchedResults + " blinkies found!";
+            }
+        }
+        randombtn.onclick = function() {
+            results.innerHTML = "";
+            for (let j=0; j<25; j++) {
+                const i = randomProperty(blinkieData);
+                const resultElement = document.createElement('img');
+                resultElement.src = blinkieData[i]['name'];
+                const fullTranscript = blinkieData[i]['transcript'];
+                const page = blinkieData[i]['page'];
+                const transcriber = blinkieData[i]['transcriber'];
+                resultElement.onclick = function() {
+                    transcriptLink.innerText = fullTranscript;
+                    sourceLink.href = page;
+                    sourceLink.innerText = page;
+                    if (transcriber == '') {
+                        transcriberLink.innerText = 'anon';
+                    }
+                    else {
+                        transcriberLink.innerText = transcriber;
+                        if (transcriberLinks[transcriber] != "") transcriberLink.href = transcriberLinks[transcriber];
+                        else transcriberLink.removeAttribute("href")
+                    }
+                }
+                results.appendChild(resultElement);
+                //results.appendChild(resultElement);
+            }
+        }
+    });
+</script>

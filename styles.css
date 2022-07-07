@@ -1,0 +1,199 @@
+body {
+    font-family: "Consolas", "Hack", "Liberation Mono", monospace;
+    background-image: url("/purple-stars-bg.gif");
+    background-attachment: fixed;
+    background-color:#000000;
+    background-repeat: repeat;
+    line-height: 1.15;
+    font-size: 10pt;
+    overflow-y: scroll;                          /* show vertical scrollbar */
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;                   /* firefox         */
+    image-rendering: -o-crisp-edges;                     /* opera           */
+    image-rendering: -webkit-optimize-contrast;          /* chrome & safari */
+    image-rendering: pixelated;                          /* chrome          */
+    image-rendering: optimize-contrast;                  /* CSS3 proposed   */
+    -ms-interpolation-mode: nearest-neighbor;            /* IE8+            */
+}
+*::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+*::-webkit-scrollbar:vertical {
+  background-color: #000000;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #822ed6;
+  border-radius: 20px;
+}
+button, option, select {
+  font-family: "Consolas", "Hack", "Liberation Mono", monospace;
+}
+select,button {
+    margin-top:4px;
+}
+input[type=checkbox] {
+    vertical-align: middle;
+    position: relative;
+    bottom: 1px;
+    margin: 0px;
+}
+p,ul {
+    font-family:"Segoe UI","Liberation Sans",sans-serif;
+    font-size:12pt;
+    line-height: 1.15;
+    margin:0px;
+}
+hr {
+    width:325px;
+    margin-top:18px;
+}
+h1, h2 {
+    text-align: center;
+    margin: 0px;
+    font-size: 12pt;
+}
+h2 {
+    font-weight:bold;
+}
+li {
+    margin-top: 5px;
+}
+select {
+    width:210px;
+}
+small {
+    font-size: 8pt;
+}
+table, tbody, td, th {
+  border: 0px;
+  border-spacing: 0px;
+  padding: 0px;
+  line-height: 1.0
+}
+td {
+    height: 22.5px;
+    white-space: nowrap
+}
+tr {
+    width: 500px;
+}
+action {
+    color:blue;
+    text-decoration: underline;
+    cursor:pointer;
+}
+.archiveContent, .content {
+    background-color:rgba(201,179,230,0.75);
+    margin: 18px auto 0px auto;
+    padding: 4px;
+    width:95%;
+}
+.archiveContent {
+    line-height: 22.5px;
+    max-width: 640px;
+    text-align:left;
+}
+.blinkie {
+    width:  150px;
+    height: 20px;
+    margin: 2px 6px 2px 6px;
+}
+.blinkie-wall {
+    width:  150px;
+    height: 20px;
+    margin: 2px;
+}
+.blinkieBanner {
+    width:  258px;
+    height: 60px;
+    margin: 2px 6px 2px 6px;
+}
+.blinkieTile {
+    cursor:pointer;
+}
+.content {
+    max-width: 540px;
+}
+.singleLineText {
+    resize:none;
+    margin-bottom: -6px;
+    height:18px;
+    overflow: overlay;
+}
+.tableWrapper {
+    overflow-x: scroll;                       /* show horizontal scrollbar */
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  position: absolute;
+  z-index: 1;
+  font-size: 8pt;
+  width: 120px;
+  top: 125%;
+  left: 50%;
+  margin-left: -70px;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+#banner, #navbar {
+    width:240px;
+    text-align:center;
+    font-weight:bold;
+    padding:4px;
+}
+#banner {
+  margin-top:18px;
+  font-size: 16pt;
+}
+#blinkieTable {
+      width: 2px;
+}
+#blinkieText, #msgText {
+    width:145px;
+    overflow:hidden;
+    resize:none;
+    margin-bottom: -6px;
+    padding-left:4px;
+    padding-top:1px;
+    padding-bottom:1px;
+    padding-right:4px;
+}
+#msgText {
+    resize:none;
+    width: 145px;
+    height:18px;
+}
+#fontTable {
+    width: 2px;
+}
+#freshBlinkie {
+    width:  150px;
+    height: 20px;
+}
+#gallery {
+    text-align:left;
+}
+#navbar {
+    font-size:12pt;
+    margin-top:6px;
+}
+#submitbtn {
+    font-size:10pt;
+    margin-top: 4px;
+    height:22px;
+    padding-top:0px;
+    padding-bottom:0px;
+}
+#tiles {
+    margin-top:5px;
+}
